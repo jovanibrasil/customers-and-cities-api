@@ -3,9 +3,9 @@ const cities = []
 module.exports = app => ({
 
     createCity: async (req, res) => {
-        console.log("Creating city");
 
         const city = req.body;
+        
         console.log(city);
 
         cities.push(city);

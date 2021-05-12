@@ -4,11 +4,19 @@ module.exports = app => ({
 
     createCustomer: async (req, res) => {
         const customer = req.body;
-        console.log(customer);
+
+        // console.log(customer);
+        
         res.status(201).json(customer);
     },
 
+    getCustomerById: async (req, res) => {
+
+        res.status(200).json(customers);
+    },
+
     getCustomer: async (req, res) => {
+        
         res.status(200).json(customers);
     },
 
