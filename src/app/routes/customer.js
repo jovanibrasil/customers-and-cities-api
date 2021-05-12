@@ -1,4 +1,4 @@
-const validate = require('../../config/joiValidationMiddleware');
+const validate = require('../../infra/middlewares/joiValidationMiddleware');
 const { 
     newCustomer, 
     patchCustomerName, 

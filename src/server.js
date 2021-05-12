@@ -2,7 +2,7 @@ const http = require('http');
 
 require('dotenv').config({ path: `${__dirname}/../.env` });
 
-const app = require('./config/express')();
+const app = require('./infra/http/express')();
 
 module.exports = http
     .createServer(app)
