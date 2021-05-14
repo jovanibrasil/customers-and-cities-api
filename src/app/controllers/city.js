@@ -1,20 +1,28 @@
-const cities = []
+const apiFeatures = require('../utils/apiFeatures');
 
 module.exports = app => ({
 
     createCity: async (req, res) => {
-
-        const city = req.body;
         
-        console.log(city);
-
-        cities.push(city);
-        res.status(201).json(city);
+        let city = req.body;
+        
+        const CityModel = app.models.City;
+        city = await CityModel.create(city);
+        
+        res.status(201).json({ city });
     },
 
     getCity: async (req, res) => {
 
-        // TODO manage possible parameters
+        const query = {},
+            { name, state } = req.query,
+            CityModel = app.models.City;
+
+        name && (query.name = name);
+        state && (query.state = state);
+
+        const { limit, skip } = apiFeatures.extractPagination(req.query);
+        const cities = await CityModel.find(query).skip(skip).limit(limit);
 
         res.status(200).json(cities);
     }

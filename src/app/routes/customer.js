@@ -14,7 +14,7 @@ module.exports = app => {
         customerController.createCustomer);
     app.get('/customers', 
         validate(query), 
-        customerController.getCustomer);
+        customerController.getCustomers);
     app.get('/customers/:customer_id', 
         validate(params), 
         customerController.getCustomerById);
