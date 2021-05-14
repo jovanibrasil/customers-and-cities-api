@@ -1,6 +1,7 @@
 const CustomerModel = require('../models/Customer');
 const CityModel = require('../models/City');
 const Errors = require('../../infra/errors/Errors');
+const logger = require('../../infra/loggers/logger')
 
 module.exports = {
 
@@ -12,6 +13,7 @@ module.exports = {
             throw Errors.BUSINESS_ERROR({ message: `City ${ city_id } not found.` });
 
         customer = await CustomerModel.create(customer);
+        logger.info(`A customer was created with id ${customer._id}`)
         return customer;
     },
 
@@ -32,6 +34,7 @@ module.exports = {
             throw Errors.NOT_FOUND_ERROR({ message: `Customer ${ customer_id } not found.` });
 
         customer = await CustomerModel.findByIdAndUpdate(customer_id, { name });
+        logger.info(`The client with id ${customer._id} had its name changed successfully`)
         return customer;
     },
 
@@ -42,6 +45,7 @@ module.exports = {
             throw Errors.NOT_FOUND_ERROR({ message: `Customer ${ customer_id } not found.` });
 
         await CustomerModel.deleteOne({ _id: customer_id });
+        logger.info(`The customer with id ${customer._id} was successfully deleted`)
     },
 
     getCustomers: async ({ query, skip, limit }) => {

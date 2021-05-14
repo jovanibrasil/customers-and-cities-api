@@ -4,7 +4,7 @@ const {
     patchCustomerName, 
     query, 
     params 
-} = require('../../domain/entities/Customer');
+} = require('../../domain/schemas/Customer');
 
 module.exports = app => {
     const customerController = app.controllers.customer;

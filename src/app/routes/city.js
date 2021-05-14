@@ -1,5 +1,5 @@
 const validate = require('../../infra/middlewares/joiValidationMiddleware');
-const { newCity, query } = require('../../domain/entities/City');
+const { newCity, query } = require('../../domain/schemas/City');
 
 module.exports = app => {
     const cityController = app.controllers.city;
