@@ -1,3 +1,5 @@
+const Errors = require('../errors/Errors')
+
 module.exports = ({schema, type}) => {
     return (req, res, next) => {
         const { error } = schema.validate(req[type], { abortEarly: false });
@@ -5,7 +7,7 @@ module.exports = ({schema, type}) => {
         if(!error) {
             next();
         } else {
-            res.status(400).json({ error });
+            throw Errors.CONTRACT_ERROR({ message: 'Invalid fields content', error_detail: error.details });
         }
 
     }

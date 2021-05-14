@@ -1,30 +1,26 @@
-const apiFeatures = require('../utils/apiFeatures');
+const { extractPagination } = require('../utils/apiFeatures');
+const { createCity, getCities } = require('../services/CityService');
+const asyncHandler = require('../../infra/errors/AsyncErrorHandler');
 
-module.exports = app => ({
+module.exports = () => ({
 
-    createCity: async (req, res) => {
-        
-        let city = req.body;
-        
-        const CityModel = app.models.City;
-        city = await CityModel.create(city);
-        
+    createCity: asyncHandler(async (req, res) => {
+        let city = await createCity(req.body);
         res.status(201).json({ city });
-    },
+    }),
 
-    getCity: async (req, res) => {
+    getCity: asyncHandler(async (req, res) => {
 
         const query = {},
-            { name, state } = req.query,
-            CityModel = app.models.City;
+            { name, state } = req.query;
 
         name && (query.name = name);
         state && (query.state = state);
 
-        const { limit, skip } = apiFeatures.extractPagination(req.query);
-        const cities = await CityModel.find(query).skip(skip).limit(limit);
+        const { limit, skip } = extractPagination(req.query);
+        const cities = await getCities(query, limit, skip);
 
         res.status(200).json(cities);
-    }
+    })
 
 });

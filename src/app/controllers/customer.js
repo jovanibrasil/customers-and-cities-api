@@ -1,70 +1,47 @@
 const apiFeatures = require('../utils/apiFeatures');
+const customerService = require('../services/CustomerService');
+const asyncHandler = require('../../infra/errors/AsyncErrorHandler');
 
-module.exports = app => ({
+module.exports = () => ({
 
-    createCustomer: async (req, res) => {
+    createCustomer: asyncHandler(async (req, res) => {
         let customer = req.body;
-
-        const CityModel = app.models.City;
-        const city = await CityModel.findById(customer.city_id);
-
-        if(!city) {
-            res.status(422).json({ message: 'City not found.' })
-        }
-
-        const CustomerModel = app.models.Customer;
-        customer = await CustomerModel.create(customer);
-        
+        customer = await customerService.createCustomer({ customer });
         res.status(201).json({ customer });
-    },
+    }),
 
-    getCustomerById: async (req, res) => {
+    getCustomerById: asyncHandler(async (req, res) => {
         const { customer_id } = req.params;
-
-        const CustomerModel = app.models.Customer;
-        const customer = await CustomerModel.findById(customer_id);
-
-        if(!customer) res.status(404).json({ message: "Customer not found." });
-
+        const customer = await customerService.getCustomerById({ customer_id });
         res.status(200).json(customer);
-    },
+    }),
     
-    patchCustomerName: async (req, res) => {
+    patchCustomerName: asyncHandler(async (req, res) => {
         const { customer_id } = req.params;
         const { name } = req.body;
+   
+        const updatedCustomer = await customerService.patchCustomerName({
+            customer_id, name
+        })
         
-        const CustomerModel = app.models.Customer;
-        const customer = await CustomerModel.findById(customer_id);
-        
-        if(!customer) res.status(404).json({ message: "Customer not found." });
-        
-        customer = await CustomerModel.findByIdAndUpdate(customer_id, { name });
-        
-        res.status(200).send(customer);
-    },
+        res.status(200).send(updatedCustomer);
+    }),
     
-    deleteCustomer: async (req, res) => {
-        
+    deleteCustomer: asyncHandler(async (req, res) => {
         const { customer_id } = req.params;
-        
-        const CustomerModel = app.models.Customer;
-        const customer = await CustomerModel.findById(customer_id);
-        
-        if(!customer) res.status(404).json({ message: "Customer not found." });
-        
-        await CustomerModel.remove({ _id: customer_id });
-        
-        res.status(204);
-    },
+        await customerService.deleteCustomer({ customer_id });
+        res.status(204).json();
+    }),
     
-    getCustomers: async (req, res) => {
-        const CustomerModel = app.models.Customer;
+    getCustomers: asyncHandler(async (req, res) => {
         const query = {};
         req.name && (query.name = req.name);
         const { limit, skip } = apiFeatures.extractPagination(req.query);
-        const customers = await CustomerModel.find(query).skip(skip).limit(limit);
+        const customers = await customerService.getCustomers({
+            query, skip, limit
+        });
 
         res.status(200).json(customers);
-    }
+    })
     
 });
