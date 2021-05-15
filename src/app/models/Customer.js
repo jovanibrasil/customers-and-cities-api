@@ -22,13 +22,18 @@ const schema = mongoose.Schema({
         required: true
     },
     age: {
-        type: Number,
-        required: true
+        type: Number
     },
     city_id: {
         type: String,
         required: true
     }           
+});
+
+schema.pre('save', function(next) {
+    const today = new Date();
+    this.age = today.getFullYear() - this.birth_date.getFullYear();
+    next();
 });
 
 module.exports = mongoose.model('Customer', schema);

@@ -4,6 +4,7 @@ require('dotenv').config({ path: `${__dirname}/../config/.env` });
 
 const app = require('./infra/http/express')();
 require("./infra/database/mongoose")("mongodb://localhost/customers-cities");
+require("./infra/swagger")(app);
 
 module.exports = http
     .createServer(app)

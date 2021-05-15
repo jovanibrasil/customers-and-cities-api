@@ -11,14 +11,17 @@ module.exports = () => ({
 
     getCity: asyncHandler(async (req, res) => {
 
-        const query = {},
+        const queryParams = [],
             { name, state } = req.query;
 
-        name && (query.name = name);
-        state && (query.state = state);
+        name && (queryParams.push({ name }));
+        state && (queryParams.push({ state }));
+        const query = queryParams.length ? { $and: [ ...queryParams ] } : {}; 
 
         const { limit, skip } = extractPagination(req.query);
-        const cities = await getCities(query, limit, skip);
+        const cities = await getCities({ 
+            query, limit, skip 
+        });
 
         res.status(200).json(cities);
     })

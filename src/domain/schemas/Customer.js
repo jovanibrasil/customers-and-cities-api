@@ -16,10 +16,6 @@ const schemas = {
                 .max('now')
                 .iso()
                 .required(),
-            age: joi.number()
-                .integer()
-                .min(0).max(200)
-                .required(),
             city_id: joi.string()
                 .uuid()
                 .required()

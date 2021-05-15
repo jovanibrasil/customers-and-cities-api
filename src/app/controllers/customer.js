@@ -34,8 +34,13 @@ module.exports = () => ({
     }),
     
     getCustomers: asyncHandler(async (req, res) => {
-        const query = {};
-        req.name && (query.name = req.name);
+
+        const queryParams = [],
+            { name } = req.query;
+
+        name && (queryParams.push({ name }));
+        const query = queryParams.length ? { $and: [ ...queryParams ] } : {};
+
         const { limit, skip } = apiFeatures.extractPagination(req.query);
         const customers = await customerService.getCustomers({
             query, skip, limit
