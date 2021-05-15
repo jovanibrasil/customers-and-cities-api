@@ -33,9 +33,9 @@ module.exports = {
         if(!customer) 
             throw Errors.NOT_FOUND_ERROR({ message: `Customer ${ customer_id } not found.` });
 
-        customer = await CustomerModel.findByIdAndUpdate(customer_id, { name });
-        logger.info(`The client with id ${customer._id} had its name changed successfully`)
-        return customer;
+        await CustomerModel.findOneAndUpdate(customer_id, { name });
+        logger.info(`The client with id ${customer._id} had its name changed successfully`);
+        return { ...customer, name };
     },
 
     deleteCustomer: async ({ customer_id }) => {
@@ -45,7 +45,7 @@ module.exports = {
             throw Errors.NOT_FOUND_ERROR({ message: `Customer ${ customer_id } not found.` });
 
         await CustomerModel.deleteOne({ _id: customer_id });
-        logger.info(`The customer with id ${customer._id} was successfully deleted`)
+        logger.info(`The customer with id ${customer._id} was successfully deleted`);
     },
 
     getCustomers: async ({ query, skip, limit }) => {
