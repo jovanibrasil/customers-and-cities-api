@@ -1,9 +1,13 @@
 const http = require('http');
 
-require('dotenv').config({ path: `${__dirname}/../config/.env` });
+if(process.env.ENV !== 'production') {
+    require('dotenv').config({ 
+        path: `${__dirname}/../config/.env` 
+    });
+}
 
 const app = require('./infra/http/express')();
-require("./infra/database/mongoose")("mongodb://localhost/customers-cities");
+require("./infra/database/mongoose")(process.env.MONGO_URL);
 require("./infra/swagger")(app);
 
 module.exports = http
