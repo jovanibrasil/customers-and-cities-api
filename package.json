@@ -7,7 +7,9 @@
     "start": "nodemon ./src/server.js",
     "dev-env-up": "docker-compose up -d --build",
     "dev-env-down": "docker-compose down",
-    "test": "mocha test/features/**/*.js --exit"
+    "test": "mocha test/**/*.js --exit",
+    "test:features": "mocha test/features/**/*.js --exit",
+    "test:unit": "mocha test/unit/**/*.js --exit"
   },
   "repository": {
     "type": "git",
@@ -21,19 +23,22 @@
   "homepage": "https://github.com/jovanibrasil/desafio-compasso-api#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "chai": "^4.3.4",
-    "chai-http": "^4.3.0",
-    "chance": "^1.1.7",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "express-load": "^1.1.16",
     "joi": "^17.4.0",
-    "mocha": "^8.4.0",
     "mongoose": "^5.12.8",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.7",
     "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2",
     "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "chance": "^1.1.7",
+    "mocha": "^8.4.0",
+    "nodemon": "^2.0.7",
+    "sinon": "^10.0.0"
   }
 }

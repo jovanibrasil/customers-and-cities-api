@@ -55,8 +55,7 @@ describe("GET /customers", () => {
           .post("/cities")
           .send(DataFaker.generateCity());
   
-        const city_id = city._id;
-        customer.city_id = city_id;
+        customer.city_id = city.city_id;
   
         const { body: { customer: createdCustomer } } = await chai
           .request(app)
@@ -65,7 +64,7 @@ describe("GET /customers", () => {
   
         let res = await chai
           .request(app)
-          .get(`/customers/${createdCustomer._id}`)
+          .get(`/customers/${createdCustomer.customer_id}`)
           .send();
     
         expect(res.status).to.equal(200);

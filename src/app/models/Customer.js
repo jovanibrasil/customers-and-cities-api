@@ -3,7 +3,7 @@ const Genre = require('../../domain/enums/Genre')
 const { v4: uuidv4 } = require('uuid');
 
 const schema = mongoose.Schema({
-    _id: { 
+    customer_id: { 
         type: String, 
         default: uuidv4 
     },
@@ -27,7 +27,7 @@ const schema = mongoose.Schema({
     city_id: {
         type: String,
         required: true
-    }           
+    },          
 });
 
 schema.pre('save', function(next) {

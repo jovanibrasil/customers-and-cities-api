@@ -8,12 +8,12 @@ module.exports = {
 
         const { name, state } = city;
         const existentCity = await City.find({ $and: [ { name }, { state } ] });
-
+        
         if(existentCity.length) 
             throw Errors.BUSINESS_ERROR({ message: `City ${name} alread exists on state ${state}.` });
 
         city = await City.create(city);
-        logger.info(`A city was created with id ${city._id}`);
+        logger.info(`A city was created with id ${city.city_id}`);
         return city;
     },
 

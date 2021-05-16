@@ -2,7 +2,7 @@ const chai = require("chai");
 const expect = chai.expect;
 const chaiHttp = require("chai-http");
 const app = require("../../src/server");
-const DataFaker = require('../DataFaker')
+const DataFaker = require('../DataFaker');
 
 chai.use(chaiHttp);
 
@@ -16,7 +16,7 @@ describe("POST /customers - Create a customer", () => {
         .send(DataFaker.generateCity());
   
       let customer = DataFaker.generateCustomer();
-      customer.city_id = cityBody.body.city._id;
+      customer.city_id = cityBody.body.city.city_id;
 
       let res = await chai
         .request(app)
@@ -24,11 +24,11 @@ describe("POST /customers - Create a customer", () => {
         .send(customer);
   
       expect(res.status).to.equal(201);
-      const { name, _id, genre, birth_date } = res.body.customer;
+      const { name, customer_id, genre, birth_date } = res.body.customer;
       expect(name).to.be.equal(customer.name);
       expect(genre).to.be.equal(customer.genre);
       expect(birth_date).to.be.equal(customer.birth_date);
-      expect(_id).to.be.not.undefined;
+      expect(customer_id).to.be.not.undefined;
     });
   });
 

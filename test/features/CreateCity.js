@@ -2,7 +2,7 @@ const chai = require("chai");
 const expect = chai.expect;
 const chaiHttp = require("chai-http");
 const app = require("../../src/server");
-const DataFaker = require('../DataFaker')
+const DataFaker = require('../DataFaker');
 
 chai.use(chaiHttp);
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 
 const schema = mongoose.Schema({
-    _id: { 
+    city_id: { 
         type: String, 
         default: uuidv4 
     },

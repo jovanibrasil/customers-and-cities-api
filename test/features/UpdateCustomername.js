@@ -18,8 +18,7 @@ describe("PATCH /customers/{customer_id}/customer", () => {
         .post("/cities")
         .send(DataFaker.generateCity());
 
-      const city_id = city._id;
-      customer.city_id = city_id;
+      customer.city_id = city.city_id;
 
       const { body: { customer: createdCustomer } } = await chai
         .request(app)
@@ -30,7 +29,7 @@ describe("PATCH /customers/{customer_id}/customer", () => {
 
       const res = await chai
         .request(app)
-        .patch(`/customers/${createdCustomer._id}/name`)
+        .patch(`/customers/${createdCustomer.customer_id}/name`)
         .send({ name });
       
       expect(res.status).to.equal(200);
