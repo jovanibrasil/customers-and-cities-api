@@ -4,7 +4,7 @@ const Genre = require('../enums/Genre'),
 
 const schemas = {
 
-    newCustomer: {
+    newCustomerBody: {
         schema: joi.object().keys({
             name: joi.string()
                 .max(80)
@@ -23,7 +23,7 @@ const schemas = {
         type: SchemaType.BODY
     },
 
-    patchCustomerName: {
+    patchCustomerNameBody: {
         schema: joi.object().keys({
             name: joi.string()
                 .max(80)
