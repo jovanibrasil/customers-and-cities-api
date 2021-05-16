@@ -33,9 +33,9 @@ module.exports = {
         if(!customer) 
             throw Errors.NOT_FOUND_ERROR({ message: `Customer ${ customer_id } not found.` });
 
-        await CustomerModel.findOneAndUpdate(customer_id, { name });
+        customer = await CustomerModel.findOneAndUpdate({ customer_id }, { name });
         logger.info(`The client with id ${customer.customer_id} had its name changed successfully`);
-        return { ...customer, name };
+        return customer;
     },
 
     deleteCustomer: async ({ customer_id }) => {
