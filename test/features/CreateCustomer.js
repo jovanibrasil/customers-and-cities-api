@@ -12,7 +12,7 @@ describe("POST /customers - Create a customer", () => {
       
       let cityBody = await chai
         .request(app)
-        .post("/cities")
+        .post("/api/cities")
         .send(DataFaker.generateCity());
   
       let customer = DataFaker.generateCustomer();
@@ -20,7 +20,7 @@ describe("POST /customers - Create a customer", () => {
 
       let res = await chai
         .request(app)
-        .post("/customers")
+        .post("/api/customers")
         .send(customer);
   
       expect(res.status).to.equal(201);
@@ -37,7 +37,7 @@ describe("POST /customers - Create a customer", () => {
     
       let res = await chai
         .request(app)
-        .post("/customers")
+        .post("/api/customers")
         .send({});
   
       expect(res.status).to.equal(400);

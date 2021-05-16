@@ -18,11 +18,11 @@ describe('CustomerService', () => {
         const city = DataFaker.generateCity();
         customer.city_id = uuidv4();
         
-        sandbox.stub(City, 'findById').returns(city); 
+        sandbox.stub(City, 'findOne').returns(city); 
         sandbox.stub(Customer, 'create').returns({ ...customer, id: uuidv4() });
 
         const savedCustomer = await CustomerService.createCustomer({ customer });
-        sandbox.assert.calledOnce(City.findById);
+        sandbox.assert.calledOnce(City.findOne);
         sandbox.assert.calledOnce(Customer.create);
 
         expect(savedCustomer.id).not.to.be.undefined;
@@ -32,7 +32,7 @@ describe('CustomerService', () => {
 
       it('When city does not exist, should thrown an error', async () => {
         const customer = DataFaker.generateCustomer();
-        sandbox.stub(City, 'findById').returns([ customer ]);
+        sandbox.stub(City, 'findOne').returns([ customer ]);
         
         let returnedError;
         try {
@@ -56,14 +56,14 @@ describe('CustomerService', () => {
           const customer = DataFaker.generateCustomer();
           const customer_id = uuidv4();
 
-          sandbox.stub(Customer, 'findById').returns({ 
+          sandbox.stub(Customer, 'findOne').returns({ 
               ...customer, 
               id: customer_id,
               city_id: uuidv4() 
           });
   
           const savedCustomer = await CustomerService.getCustomerById({ customer_id });
-          sandbox.assert.calledOnce(Customer.findById);
+          sandbox.assert.calledOnce(Customer.findOne);
   
           expect(savedCustomer.id).not.to.be.undefined;
           expect(savedCustomer.name).to.be.equal(customer.name);
@@ -72,7 +72,7 @@ describe('CustomerService', () => {
   
         it('When customer does not exist, should thrown an error', async () => {
           const customer = DataFaker.generateCustomer();
-          sandbox.stub(Customer, 'findById').returns(undefined);
+          sandbox.stub(Customer, 'findOne').returns(undefined);
           
           let returnedError;
           try {
@@ -96,7 +96,7 @@ describe('CustomerService', () => {
           const customer = DataFaker.generateCustomer();
           const customer_id = uuidv4();
 
-          sandbox.stub(Customer, 'findById').returns({ 
+          sandbox.stub(Customer, 'findOne').returns({ 
               ...customer, 
               id: customer_id,
               city_id: uuidv4() 
@@ -104,14 +104,14 @@ describe('CustomerService', () => {
           sandbox.stub(Customer, 'deleteOne');
   
           await CustomerService.deleteCustomer({ customer_id });
-          sandbox.assert.calledOnce(Customer.findById);
+          sandbox.assert.calledOnce(Customer.findOne);
           sandbox.assert.calledOnce(Customer.deleteOne);
   
         });
   
         it('When customer does not exist, should thrown an error', async () => {
           const customer = DataFaker.generateCustomer();
-          sandbox.stub(Customer, 'findById').returns(undefined);
+          sandbox.stub(Customer, 'findOne').returns(undefined);
           
           let returnedError;
           try {

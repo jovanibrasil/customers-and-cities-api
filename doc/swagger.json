@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is a sample documentation for a Compasso UOL challange.",
+    "description": "This is a sample documentation for a Compasso UOL challange. You can see the code in this link: https://github.com/jovanibrasil/customers-and-cities-api",
     "version": "1.0.0",
     "title": "Customers and cities API",
     "contact": {
@@ -21,10 +21,6 @@
       "name": "City",
       "description": "Location where customers live"
     }
-  ],
-  "schemes": [
-    "http",
-    "https"
   ],
   "paths": {
     "/cities": {
@@ -275,7 +271,7 @@
           {
             "name": "customer_id",
             "in": "path",
-            "description": "ID of customer to delete",
+            "description": "ID of customer to update name",
             "required": true,
             "type": "string",
             "format": "uuid"

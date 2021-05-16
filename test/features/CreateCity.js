@@ -13,7 +13,7 @@ describe("POST /cities - Create a city", () => {
   
       let res = await chai
         .request(app)
-        .post("/cities")
+        .post("/api/cities")
         .send(city);
   
       expect(res.status).to.equal(201);
@@ -30,7 +30,7 @@ describe("POST /cities - Create a city", () => {
     beforeEach(async () => {
       await chai
         .request(app)
-        .post("/cities")
+        .post("/api/cities")
         .send(city);
     });
 
@@ -38,7 +38,7 @@ describe("POST /cities - Create a city", () => {
     
       let res = await chai
         .request(app)
-        .post("/cities")
+        .post("/api/cities")
         .send(city);
   
       expect(res.status).to.equal(422);
@@ -51,7 +51,7 @@ describe("POST /cities - Create a city", () => {
     
       let res = await chai
         .request(app)
-        .post("/cities")
+        .post("/api/cities")
         .send({});
   
       expect(res.status).to.equal(400);

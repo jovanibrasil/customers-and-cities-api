@@ -15,19 +15,19 @@ describe("DELETE /customers/{customer_id}", () => {
 
       let { body : { city } } = await chai
         .request(app)
-        .post("/cities")
+        .post("/api/cities")
         .send(DataFaker.generateCity());
 
       customer.city_id = city.city_id;
 
       const { body: { customer: createdCustomer } } = await chai
         .request(app)
-        .post("/customers")
+        .post("/api/customers")
         .send(customer);
 
       let res = await chai
         .request(app)
-        .delete(`/customers/${createdCustomer.customer_id}`)
+        .delete(`/api/customers/${createdCustomer.customer_id}`)
         .send();
   
       expect(res.status).to.equal(204);
@@ -39,7 +39,7 @@ describe("DELETE /customers/{customer_id}", () => {
   
       let res = await chai
         .request(app)
-        .delete(`/customers/${uuidv4()}`)
+        .delete(`/api/customers/${uuidv4()}`)
         .send();
   
       expect(res.status).to.equal(404);

@@ -35,6 +35,7 @@ module.exports = {
 
         customer = await CustomerModel.findOneAndUpdate({ customer_id }, { name });
         logger.info(`The client with id ${customer.customer_id} had its name changed successfully`);
+        customer.name = name;
         return customer;
     },
 

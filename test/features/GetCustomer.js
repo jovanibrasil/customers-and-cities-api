@@ -15,7 +15,7 @@ describe("GET /customers", () => {
       beforeEach(async () => {
         let { body : { city: { _id } } } = await chai
           .request(app)
-          .post("/cities")
+          .post("/api/cities")
           .send(DataFaker.generateCity());
     
         const customers = DataFaker.generateCustomers(2);
@@ -23,7 +23,7 @@ describe("GET /customers", () => {
           customer.city_id = _id;
           await chai
             .request(app)
-            .post("/customers")
+            .post("/api/customers")
             .send(customer);
         }
         customer = customers[0];
@@ -33,7 +33,7 @@ describe("GET /customers", () => {
         
         let res = await chai
           .request(app)
-          .get("/customers")
+          .get("/api/customers")
           .query({ name: customer.name })
           .send();
     
@@ -52,19 +52,19 @@ describe("GET /customers", () => {
   
         let { body : { city } } = await chai
           .request(app)
-          .post("/cities")
+          .post("/api/cities")
           .send(DataFaker.generateCity());
   
         customer.city_id = city.city_id;
   
         const { body: { customer: createdCustomer } } = await chai
           .request(app)
-          .post("/customers")
+          .post("/api/customers")
           .send(customer);
   
         let res = await chai
           .request(app)
-          .get(`/customers/${createdCustomer.customer_id}`)
+          .get(`/api/customers/${createdCustomer.customer_id}`)
           .send();
     
         expect(res.status).to.equal(200);
@@ -76,7 +76,7 @@ describe("GET /customers", () => {
     
         let res = await chai
           .request(app)
-          .get(`/customers/${uuidv4()}`)
+          .get(`/api/customers/${uuidv4()}`)
           .send();
     
         expect(res.status).to.equal(404);

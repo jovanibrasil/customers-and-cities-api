@@ -30,7 +30,7 @@ describe("GET /cities - Get cities by parameters", () => {
       
       let res = await chai
         .request(app)
-        .get("/cities")
+        .get("/api/cities")
         .query({ name: city.name })
         .send();
   
@@ -47,7 +47,7 @@ describe("GET /cities - Get cities by parameters", () => {
     
       let res = await chai
         .request(app)
-        .get("/cities")
+        .get("/api/cities")
         .query({ state: city.state })
         .send();
 
@@ -64,7 +64,7 @@ describe("GET /cities - Get cities by parameters", () => {
     
       let res = await chai
         .request(app)
-        .get("/cities")
+        .get("/api/cities")
         .query({ name: city.name, state: city.state  })
         .send();
 

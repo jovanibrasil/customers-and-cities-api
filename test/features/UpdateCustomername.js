@@ -15,21 +15,21 @@ describe("PATCH /customers/{customer_id}/customer", () => {
 
       let { body : { city } } = await chai
         .request(app)
-        .post("/cities")
+        .post("/api/cities")
         .send(DataFaker.generateCity());
 
       customer.city_id = city.city_id;
 
       const { body: { customer: createdCustomer } } = await chai
         .request(app)
-        .post("/customers")
+        .post("/api/customers")
         .send(customer);
 
       const { name } = DataFaker.generateCustomer();
 
       const res = await chai
         .request(app)
-        .patch(`/customers/${createdCustomer.customer_id}/name`)
+        .patch(`/api/customers/${createdCustomer.customer_id}/name`)
         .send({ name });
       
       expect(res.status).to.equal(200);
@@ -43,7 +43,7 @@ describe("PATCH /customers/{customer_id}/customer", () => {
   
       let res = await chai
         .request(app)
-        .patch(`/customers/${uuidv4()}/name`)
+        .patch(`/api/customers/${uuidv4()}/name`)
         .send({ name });
   
       expect(res.status).to.equal(404);

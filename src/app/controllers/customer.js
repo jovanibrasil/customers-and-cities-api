@@ -2,7 +2,7 @@ const apiFeatures = require('../utils/apiFeatures');
 const customerService = require('../services/CustomerService');
 const asyncHandler = require('../../infra/errors/AsyncErrorHandler');
 
-module.exports = () => ({
+module.exports = {
 
     createCustomer: asyncHandler(async (req, res) => {
         let customer = req.body;
@@ -49,4 +49,4 @@ module.exports = () => ({
         res.status(200).json(customers);
     })
     
-});
+};

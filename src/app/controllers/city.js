@@ -2,7 +2,7 @@ const { extractPagination } = require('../utils/apiFeatures');
 const { createCity, getCities } = require('../services/CityService');
 const asyncHandler = require('../../infra/errors/AsyncErrorHandler');
 
-module.exports = () => ({
+module.exports = {
 
     createCity: asyncHandler(async (req, res) => {
         let city = await createCity(req.body);
@@ -25,5 +25,4 @@ module.exports = () => ({
 
         res.status(200).json(cities);
     })
-
-});
+};
