@@ -24,6 +24,7 @@
   "homepage": "https://github.com/jovanibrasil/desafio-compasso-api#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "express-load": "^1.1.16",
